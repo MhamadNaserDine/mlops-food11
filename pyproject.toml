@@ -24,3 +24,23 @@ mlops-lab1 = "mlops_lab1:main"
 [build-system]
 requires = ["uv_build>=0.12.15,<0.13.0"]
 build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=9.2.0",
+    "ruff>=0.17.6",
+]
+# --- Lab 5: use CPU-only PyTorch on every platform (no CUDA in Docker / CI) ---
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu" }]
+torchvision = [{ index = "pytorch-cpu" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+# --- Lab 5: let tests import "src.food11..." from the repo root ---
+[tool.pytest.ini_options]
+pythonpath = ["."]

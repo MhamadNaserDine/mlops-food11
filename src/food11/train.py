@@ -1,13 +1,13 @@
 import argparse
 from pathlib import Path
 
-import mlflow
 import mlflow.pytorch
 import torch
-import torch.nn as nn
+from torch import nn
 from torch.utils.data import DataLoader
 from torchvision import datasets, models, transforms
 
+import mlflow
 
 mlflow.set_tracking_uri("http://127.0.0.1:5000")
 mlflow.set_experiment("food11")
@@ -267,7 +267,7 @@ def main():
                 step=epoch,
             )
 
-        test_loss, test_accuracy = evaluate(
+        _test_loss, test_accuracy = evaluate(
             model,
             test_loader,
             criterion,
